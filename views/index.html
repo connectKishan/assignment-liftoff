@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <title>Voris Assignment</title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="../style/style.css">
+</head>
+<body ng-controller="formCtrl" >
+<div class="container">
+<div class="col-sm-8 col-sm-offset-2">
+    <div class="page-header"><h1>Voris Assignment</h1></div>
+
+    <!-- FORM -->
+    <!-- I am marking error on form before submiting the form itslef otherwise i can set $scope.submitted true in app 
+    and will add condition in ng.class has error && submitted  -->
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate> 
+
+        <div class="form-group" ng-class="{ 'has-error' : userForm.f_name.$invalid && !userForm.f_name.$pristine }">
+            <label>First Name</label>
+            <input type="text" name="f_name" class="form-control" ng-model="f_name" required>
+            <p ng-show="userForm.f_name.$invalid && !userForm.f_name.$pristine" class="help-block">You first name is required.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.m_name.$invalid && !userForm.m_name.$pristine }">
+            <label>Middle Name</label>
+            <input type="text" name="m_name" class="form-control" ng-model="m_name" required>
+            <p ng-show="userForm.m_name.$invalid && !userForm.m_name.$pristine" class="help-block">You middle name is required.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.l_name.$invalid && !userForm.l_name.$pristine }">
+            <label>Last Name</label>
+            <input type="text" name="l_name" class="form-control" ng-model="l_name" required>
+            <p ng-show="userForm.l_name.$invalid && !userForm.l_name.$pristine" class="help-block">You last name is required.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.comp_name.$invalid && !userForm.comp_name.$pristine }">
+            <label>Company Name</label>
+            <input type="text" name="comp_name" class="form-control" ng-model="comp_name" ng-minlength="3" ng-maxlength="8" required>
+            <p ng-show="userForm.comp_name.$invalid && !userForm.comp_name.$pristine" class="help-block">You company name is required.</p>
+            <p ng-show="userForm.comp_name.$error.minlength" class="help-block">comp_name is too short.</p>
+            <p ng-show="userForm.comp_name.$error.maxlength" class="help-block">comp_name is too long.</p>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" ng-model="email">
+            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+
+    </form>
+    <!-- SCRIPTS -->
+<script type="text/javascript" src="../node_modules/angular/angular.js" ></script>
+<script type="text/javascript" src="../node_modules/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="../app/app.js"></script>
+
+</body>
+</html>
