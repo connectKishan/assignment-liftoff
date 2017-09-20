@@ -8,14 +8,21 @@ app.controller('formCtrl',function($scope,$http) {
     "comp_name":"",
     "email":"",
 };
-$scope.id=0;         
+         
 $scope.submitForm = function(isValid) {
       // check to make sure the form is completely valid
     if (isValid) {
-      console.log($scope.formList);
-      $http.post('/formData').then(function(response){
-        alert(response)
-      });
+      var data=$scope.formList;
+      var config = {
+        headers : {
+            'Content-Type': 'application/json'
+        }
+    }
+    $http.post('/formData', data, config)
+    .then(function (response, status, headers, config) {
+        $scope.PostDataResponse = response.data;
+        console.log($scope.PostDataResponse)
+    })
     }
   };
   $scope.reset=function(){
@@ -27,11 +34,23 @@ $scope.submitForm = function(isValid) {
       "email":"",
   };
   }
-});
+  $scope.data={"email":""};
+  $scope.delete=function(){
+    var data=$scope.data;
+    var config = {
+      headers : {
+          'Content-Type': 'application/json'
+      }}
+$http.get('/delete',data,config)
+.then(function(response,status,headers,config){
 
+})
+  };
+});
 app.controller('listCtrl',function($scope,$http){
-  $http.get('/fileList.json').then(function(response){
+  $http.get('/formList').then(function(response){
     $scope.listData=response.data;
+    
   });
 })
 app.service('myService',function(){
