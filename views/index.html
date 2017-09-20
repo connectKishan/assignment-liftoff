@@ -42,7 +42,15 @@
             <input type="email" name="email" class="form-control" ng-model="formList.email">
             <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
         </div>
-
+        <div>
+        <input type="file"  ngf-select  ng-model="up.file"  name="file"  ngf-pattern="'image/*'" accept="image/*"  ngf-max-size="20MB"  />
+     Image thumbnail: <img style="width:100px;" ngf-thumbnail="up.file || '/thumb.jpg'"/>
+     <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+     <i ng-show="up.upload_form.file.$error.maxSize">File too large 
+     {{up.file.size / 1000000|number:1}}MB: max 20M</i>
+     <button type="submit" ng-click="up.submit()">Upload</button>
+     <p>{{up.progress}}
+     </div>
         <!-- SUBMIT BUTTON -->
         <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
         <button type="submit" class="btn btn-primary" ng-click="reset()" >Cancel</button>
@@ -55,13 +63,15 @@
             <div ng-repeat="form in listData">
             <div class="row service" >
               <div class="col-md-12">
-                 <h5>{{++index}}</h5> 
-                <h5> {{ form.first_name}}</h5>
-                <h5> {{ form.middle_name}}</h5>
-                <h5 {{ form.last_name}}</h5>
-                <h5> {{ form.comp_name}}</h5>
-                <h5> {{ form.email}}</h5>
-                <button type="submit" class="btn btn-primary" ng-click="Delete()" >Delete</button>
+                  <table>
+                <tr><th>FIRST NAME</th><th> {{ form.f_name}}</th></tr>
+                <tr><th>MIDDLE NAME </th><th>:{{ form.mid_name}}</th></tr>
+                <tr><th> LAST NAME</th><th>:{{ form.l_name}} </th></tr>
+                <tr><th>COMP NAME</th><th>: {{ form.comp_name}}</th></tr>
+                <tr><th>EMAIL</th><th ng-model="data.email">: {{ form.email}}</th></tr>
+                <tr><th>CREATED ON </th><th>:{{ form.createdon}}</th></tr>
+                  </table>
+                <button type="submit" class="btn btn-primary" ng-click="delete()" >Delete</button>
                 
               </div>
             </div>
